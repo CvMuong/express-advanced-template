@@ -19,7 +19,6 @@ const protect = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, config.jwt_secret);
         req.account = decoded;
-        console.log('Token decoded: ', req.account);
         next();
     } catch {
         return next(handleAuthError('Invalid or expired token'));
@@ -30,8 +29,6 @@ const authorize = (...allowedRoles) => (req, res, next) => {
     if (!req.account || !allowedRoles.includes(req.account.role)) {
         return next(handleAuthError('Forbidden', 403));
     }
-
-    console.log('Role being checked: ', req.account?.role);
 
     next();
 }

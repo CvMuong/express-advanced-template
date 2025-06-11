@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const config = require('./config/env');
 const userRoutes = require('./routes/user.route');
 const authRoutes = require('./routes/auth.route');
@@ -15,6 +16,7 @@ if (config.node_env === 'development') {
 }
 
 app.use(express.json());
+app.use(cookieParser);
 
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
